@@ -251,7 +251,7 @@
             <div class="z-10 flex flex-col items-center">
                 <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 scroll-animate">Hi! I'm Ymne!</h1>
                 <p class="text-lg md:text-xl text-secondary-dark mb-8 scroll-animate" style="transition-delay: 150ms;">
-                    Game Developer &middot; Artist &middot; Graphics Programmer</p>
+                    Graphics Programmer &middot; Game Developer &middot; Artist</p>
                 <div class="flex justify-center space-x-8 mb-8 scroll-animate" style="transition-delay: 300ms;">
                     <span class="material-symbols-outlined text-3xl text-secondary-dark"
                         title="Graphics Programmer">view_in_ar</span>
@@ -320,8 +320,90 @@
             </div>
         </section>
 
+        <!-- Shaders Section -->
+        <section id="shaders" class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt">
+            <div class="container mx-auto px-6">
+                <h2
+                    class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3">
+                    <span class="material-symbols-outlined !text-4xl">view_in_ar</span><span>Shaders, Tutorials, &
+                        Graphics</span>
+                </h2>
+                <!-- Highlighted Projects -->
+                <div id="shader-grid" class="panel-grid mb-12">
+                    <div class="panel scroll-animate panel-h-1 panel-v-1" data-title="Cel Shading Shader (Unity - BRP)"
+                        data-description="A custom cel-shading shader designed for anime/MMD-style characters in Unity. Supports features like hard-edge lighting, SSS (subsurface scattering), rim lighting, double-sided rendering, and more."
+                        data-link="https://github.com/Ymne22/Cel-Shading-Shader-for-Unity-BRP"
+                        data-image="video/shader/Shader_1.mp4"><video src="video/shader/Shader_1.mp4" autoplay loop
+                            muted playsinline class="w-full h-full object-cover"></video>
+                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
+                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Cel Shading Shader
+                                (Unity - BRP)</h4>
+                        </div>
+                    </div>
+
+                    <div class="panel scroll-animate panel-h-1 panel-v-1"
+                        data-title="Water Material Shader (Unity - BRP)"
+                        data-description="A water shader made for Unity, featuring physically-inspired light interaction, screen-space reflections, foam, Gerstner waves, and more."
+                        data-link="https://github.com/Ymne22/Water-Material-Shader-for-Unity-BRP"
+                        data-image="video/shader/Shader_5.mp4"><video src="video/shader/Shader_5.mp4" autoplay loop
+                            muted playsinline class="w-full h-full object-cover"></video>
+                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
+                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Water
+                                Material Shader (Unity - BRP)</h4>
+                        </div>
+                    </div>
+
+                    <div class="panel scroll-animate panel-h-4 panel-v-2" data-title="Software Raytracing (Unity - BRP)"
+                        data-description="This project explores a real-time software-based ray tracer built from scratch in Unity, leveraging compute shaders instead of relying on hardware-accelerated ray tracing APIs. It implements a simple Bounding Volume Hierarchy (BVH), recursive light transport including reflections and indirect lighting, and a procedural sky."
+                        data-link="https://github.com/Ymne22/Real-Time-Software-Ray-Tracing-in-Unity-BRP"
+                        data-image="video/shader/Shader_2.mp4"><video src="video/shader/Shader_2.mp4" autoplay loop
+                            muted playsinline class="w-full h-full object-cover"></video>
+                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
+                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Software Raytracing
+                                (Unity - BRP)</h4>
+                        </div>
+                    </div>
+
+                    <div class="panel scroll-animate panel-h-2 panel-v-1"
+                        data-title="Screen Space Global Illumination (Unity - BRP)"
+                        data-description="This is a simple and lightweight implementation of Screen Space Global Illumination (SSGI) for Unity's Built-in Render Pipeline (BRP). It features a fully ray-marching approach and provides both global illumination and ambient occlusion support with minimal setup and no external dependencies."
+                        data-link="https://github.com/Ymne22/Screen-Space-Global-Illumination-SSGI-for-Unity-Built-in-RP"
+                        data-image="video/shader/Shader_3.mp4"><video src="video/shader/Shader_3.mp4" autoplay loop
+                            muted playsinline class="w-full h-full object-cover"></video>
+                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
+                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Screen Space Global
+                                Illumination (Unity - BRP)</h4>
+                        </div>
+                    </div>
+
+                    <div class="panel scroll-animate panel-h-2 panel-v-1" data-title="PSX Shader Pack (Unity - BRP)"
+                        data-description="A collection of PlayStation 1-inspired shaders for Unity's Built-in Render Pipeline (BRP), designed to replicate the visual style of early PSX. This pack includes fog effects, vertex jittering (material based), dithered transparency, pixelation, and color quantization."
+                        data-link="https://github.com/Ymne22/PSX-Shaders-for-Unity-Built-in-RP"
+                        data-image="video/shader/Shader_4.mp4"><video src="video/shader/Shader_4.mp4" autoplay loop
+                            muted playsinline class="w-full h-full object-cover"></video>
+                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
+                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">PSX Shader
+                                Pack (Unity - BRP)</h4>
+                        </div>
+                    </div>
+
+                    <div class="panel scroll-animate panel-h-2 panel-v-1"
+                        data-title="Tutorial combination of APV and Precomputed GI Enlighten (Unity - HDRP)"
+                        data-description="A quick tutorial and a bit of a breakdown on combining APV and Precomputed GI (Enlighten) in Unity HDRP."
+                        data-link="https://x.com/ymne22/status/1917835820737913286"
+                        data-image="video/shader/Shader_6.mp4"><video src="video/shader/Shader_6.mp4" autoplay loop
+                            muted playsinline class="w-full h-full object-cover"></video>
+                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
+                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Tutorial
+                                combination of APV and Precomputed GI Enlighten (Unity - HDRP)</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- =========== Games Section =========== -->
-        <section id="games" class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt">
+        <section id="games" class="py-20 md:py-32">
             <div class="container mx-auto px-6">
                 <h2
                     class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3">
@@ -380,7 +462,7 @@
         </section>
 
         <!-- Art Section -->
-        <section id="art" class="py-20 md:py-32">
+        <section id="art" class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt">
             <div class="container mx-auto px-6">
                 <h2
                     class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3">
@@ -525,156 +607,7 @@
                         <button class="next-btn"><span class="material-symbols-outlined">chevron_right</span></button>
                     </div>
                 </div>
-
-                <!-- Standard Projects Carousel 2 -->
-                <h3
-                    class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3">
-                    <span>'Kanna and Lia' Materials</span>
-                </h3>
-                <div class="carousel max-w-7xl mx-auto" data-section="art">
-                    <div class="carousel-container">
-                        <div class="carousel-track -mx-2">
-                            <div class="carousel-item">
-                                <div class="panel" data-title="'Kanna and Lia' Animation Cut 1"
-                                    data-description="This cut was added specifically for the opening scene."
-                                    data-link="#" data-image="video/art/KnL/Art_1.mp4"><video
-                                        src="video/art/KnL/Art_1.mp4" autoplay loop muted playsinline
-                                        class="w-full h-full object-cover"></video>
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">'Kanna and
-                                            Lia' Animation Cut 1</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="'Kanna and Lia' Animation Cut 2"
-                                    data-description="This cut was added specifically for the opening scene."
-                                    data-link="#" data-image="video/art/KnL/Art_2.mp4"><video
-                                        src="video/art/KnL/Art_2.mp4" autoplay loop muted playsinline
-                                        class="w-full h-full object-cover"></video>
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">'Kanna and
-                                            Lia' Animation Cut 2</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="Kanna and Lia' Character Sprites"
-                                    data-description="Sprites set art for Kanna and Lia." data-link="#"
-                                    data-image="image/art/KnL/art_1.jpg"><img src="image/art/KnL/art_1.jpg">
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Kanna and
-                                            Lia' Character Sprites</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="Kanna and Lia' Rough Concept Art 1"
-                                    data-description="This is one of the many concept art pieces for the game. I have a lot of them stored on my drive, but unfortunately, my drive is currently broken..."
-                                    data-link="https://x.com/ymne22/status/1921566974699556937"
-                                    data-image="image/art/KnL/art_2.jpg"><img src="image/art/KnL/art_2.jpg">
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Kanna and
-                                            Lia' Rough Concept Art 1</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-controls mt-8">
-                        <button class="prev-btn"><span class="material-symbols-outlined">chevron_left</span></button>
-                        <button class="next-btn"><span class="material-symbols-outlined">chevron_right</span></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Shaders Section -->
-        <section id="shaders" class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt">
-            <div class="container mx-auto px-6">
-                <h2
-                    class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3">
-                    <span class="material-symbols-outlined !text-4xl">view_in_ar</span><span>Shaders, Tutorials, &
-                        Graphics</span>
-                </h2>
-                <!-- Highlighted Projects -->
-                <div id="shader-grid" class="panel-grid mb-12">
-                    <div class="panel scroll-animate panel-h-1 panel-v-1" data-title="Cel Shading Shader (Unity - BRP)"
-                        data-description="A custom cel-shading shader designed for anime/MMD-style characters in Unity. Supports features like hard-edge lighting, SSS (subsurface scattering), rim lighting, double-sided rendering, and more."
-                        data-link="https://github.com/Ymne22/Cel-Shading-Shader-for-Unity-BRP"
-                        data-image="video/shader/Shader_1.mp4"><video src="video/shader/Shader_1.mp4" autoplay loop
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Cel Shading Shader
-                                (Unity - BRP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-1 panel-v-1"
-                        data-title="Water Material Shader (Unity - BRP)"
-                        data-description="A water shader made for Unity, featuring physically-inspired light interaction, screen-space reflections, foam, Gerstner waves, and more."
-                        data-link="https://github.com/Ymne22/Water-Material-Shader-for-Unity-BRP"
-                        data-image="video/shader/Shader_5.mp4"><video src="video/shader/Shader_5.mp4" autoplay loop
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Water
-                                Material Shader (Unity - BRP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-4 panel-v-2" data-title="Software Raytracing (Unity - BRP)"
-                        data-description="This project explores a real-time software-based ray tracer built from scratch in Unity, leveraging compute shaders instead of relying on hardware-accelerated ray tracing APIs. It implements a simple Bounding Volume Hierarchy (BVH), recursive light transport including reflections and indirect lighting, and a procedural sky."
-                        data-link="https://github.com/Ymne22/Real-Time-Software-Ray-Tracing-in-Unity-BRP"
-                        data-image="video/shader/Shader_2.mp4"><video src="video/shader/Shader_2.mp4" autoplay loop
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Software Raytracing
-                                (Unity - BRP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-1"
-                        data-title="Screen Space Global Illumination (Unity - BRP)"
-                        data-description="This is a simple and lightweight implementation of Screen Space Global Illumination (SSGI) for Unity's Built-in Render Pipeline (BRP). It features a fully ray-marching approach and provides both global illumination and ambient occlusion support with minimal setup and no external dependencies."
-                        data-link="https://github.com/Ymne22/Screen-Space-Global-Illumination-SSGI-for-Unity-Built-in-RP"
-                        data-image="video/shader/Shader_3.mp4"><video src="video/shader/Shader_3.mp4" autoplay loop
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Screen Space Global
-                                Illumination (Unity - BRP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-1" data-title="PSX Shader Pack (Unity - BRP)"
-                        data-description="A collection of PlayStation 1-inspired shaders for Unity's Built-in Render Pipeline (BRP), designed to replicate the visual style of early PSX. This pack includes fog effects, vertex jittering (material based), dithered transparency, pixelation, and color quantization."
-                        data-link="https://github.com/Ymne22/PSX-Shaders-for-Unity-Built-in-RP"
-                        data-image="video/shader/Shader_4.mp4"><video src="video/shader/Shader_4.mp4" autoplay loop
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">PSX Shader
-                                Pack (Unity - BRP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-1"
-                        data-title="Tutorial combination of APV and Precomputed GI Enlighten (Unity - HDRP)"
-                        data-description="A quick tutorial and a bit of a breakdown on combining APV and Precomputed GI (Enlighten) in Unity HDRP."
-                        data-link="https://x.com/ymne22/status/1917835820737913286"
-                        data-image="video/shader/Shader_6.mp4"><video src="video/shader/Shader_6.mp4" autoplay loop
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Tutorial
-                                combination of APV and Precomputed GI Enlighten (Unity - HDRP)</h4>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </section>
     </main>
