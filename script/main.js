@@ -97,9 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Keyboard Shortcuts ---
   const shortcuts = {
     1: "#about",
-    2: "#games",
+    2: "#shaders",
     3: "#art",
-    4: "#shaders",
+    4: "#games",
     5: "#contact",
   };
   document.addEventListener("keydown", (e) => {
