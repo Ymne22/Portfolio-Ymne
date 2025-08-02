@@ -1,4 +1,10 @@
-## About This Project
+# About This Project
+
+<p align="center">
+  <img src="image/QR/QR.png" alt="QR" width="400"/>
+</p>
+
+<p align="center">https://ymne22.github.io/Portfolio-Ymne/</p>
 
 I made this portfolio page using **Tailwind CSS** and plain old **JavaScript**.  
 No back-end involved, and I wanted to keep it simple and just make sure it *works*.
