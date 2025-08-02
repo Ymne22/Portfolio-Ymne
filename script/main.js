@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Modal video on mobile: autoplay
         video.setAttribute("autoplay", "true");
         video.setAttribute("loop", "true");
+        video.load();
         video.setAttribute("muted", "true");
         video.setAttribute("playsinline", "true");
         video.play().catch(() => {});
