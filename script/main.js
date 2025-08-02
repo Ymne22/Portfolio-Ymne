@@ -30,6 +30,52 @@ document.addEventListener("DOMContentLoaded", () => {
     applyTheme(isDark ? "light" : "dark");
   });
 
+  // --- Video Optimization ---
+  const isMobile = window.innerWidth < 768;
+  const heroVideo = document.getElementById("hero-video-bg");
+  const allVideos = document.querySelectorAll("video");
+
+  allVideos.forEach((video) => {
+    if (video === heroVideo) return;
+
+    const isModal = video.dataset.modal === "true";
+    const videoSrc = video.dataset.src;
+
+    if (!videoSrc) return;
+
+    if (isMobile) {
+      video.src = videoSrc;
+      video.load();
+
+      if (isModal) {
+        // Modal video on mobile: autoplay
+        video.setAttribute("autoplay", "true");
+        video.setAttribute("loop", "true");
+        video.setAttribute("muted", "true");
+        video.setAttribute("playsinline", "true");
+        video.play().catch(() => {});
+        video.style.display = "";
+      } else {
+        // Grid video on mobile: visible but paused
+        video.removeAttribute("autoplay");
+        video.pause();
+        video.setAttribute("muted", "true");
+        video.setAttribute("playsinline", "true");
+        video.style.display = "";
+      }
+    } else {
+      // Tablet/PC: full autoplay for all
+      video.src = videoSrc;
+      video.setAttribute("autoplay", "true");
+      video.setAttribute("loop", "true");
+      video.setAttribute("muted", "true");
+      video.setAttribute("playsinline", "true");
+      video.style.display = "";
+      video.load();
+      video.play().catch(() => {});
+    }
+  });
+
   // --- Header Visibility on Scroll ---
   const heroObserver = new IntersectionObserver(
     (entries) => {
