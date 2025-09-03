@@ -1,103 +1,186 @@
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ymne Portfolio Web</title>
-    <meta name="description" content="Personal portfolio">
+    <meta name="description" content="Personal portfolio" />
 
     <!-- Font: Satoshi -->
-    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Google Material Symbols -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
 
     <!-- Tailwind Config -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Satoshi', 'sans-serif'],
-                    },
-                    colors: {
-                        // Softer Light Mode Palette
-                        'background-light': '#F2F2F2',
-                        'background-light-alt': '#E6E6E6',
-                        'text-light': '#333333',
-                        'primary-light': '#4A4A4A',
-                        'secondary-light': '#808080',
-                        'border-light': '#D9D9D9',
-                        // Softer Dark Mode Palette
-                        'background-dark': '#121212',
-                        'background-dark-alt': '#18181B',
-                        'text-dark': '#E4E4E7',
-                        'primary-dark': '#A1A1AA',
-                        'secondary-dark': '#A1A1AA',
-                        'border-dark': '#27272A',
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Satoshi", "sans-serif"],
+            },
+            colors: {
+              // Softer Light Mode Palette
+              "background-light": "#F2F2F2",
+              "background-light-alt": "#E6E6E6",
+              "text-light": "#333333",
+              "primary-light": "#4A4A4A",
+              "secondary-light": "#808080",
+              "border-light": "#D9D9D9",
+              // Softer Dark Mode Palette
+              "background-dark": "#121212",
+              "background-dark-alt": "#18181B",
+              "text-dark": "#E4E4E7",
+              "primary-dark": "#A1A1AA",
+              "secondary-dark": "#A1A1AA",
+              "border-dark": "#27272A",
+            },
+          },
+        },
+      };
     </script>
 
     <style type="text/tailwindcss">
-        /* Custom Base Styles */
-        body {
-            @apply bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark font-sans transition-colors duration-300;
+      /* Custom Base Styles */
+      body {
+        @apply bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark font-sans transition-colors duration-300;
+      }
+
+      /* Header Visibility */
+      #main-header {
+        @apply transition-all duration-300;
+      }
+      #main-header.header-hidden {
+        @apply -translate-y-full opacity-0;
+      }
+
+      /* Preloader Styles */
+      #preloader {
+        @apply fixed top-0 left-0 w-full h-full bg-background-light dark:bg-background-dark z-[100] flex justify-center items-center;
+        transition: opacity 0.5s ease-in-out;
+      }
+      #preloader.loaded {
+        @apply opacity-0 pointer-events-none;
+      }
+      .preloader-container {
+        @apply flex items-center text-xl md:text-2xl font-medium text-secondary-light dark:text-secondary-dark;
+      }
+      .preloader-word {
+        @apply opacity-0;
+        animation: preloader-fade-in 1.5s forwards;
+      }
+      .preloader-dots span {
+        @apply opacity-0;
+        animation: preloader-dot-fade 1.5s infinite;
+      }
+      .preloader-dots span:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .preloader-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .preloader-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes preloader-fade-in {
+        to {
+          opacity: 1;
         }
+      }
+      @keyframes preloader-dot-fade {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
 
-        /* Header Visibility */
-        #main-header { @apply transition-all duration-300; }
-        #main-header.header-hidden { @apply -translate-y-full opacity-0; }
+      /* Scroll Animation Styles */
+      .scroll-animate {
+        @apply opacity-0 translate-y-5;
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .scroll-animate.is-visible {
+        @apply opacity-100 translate-y-0;
+      }
 
-        /* Preloader Styles */
-        #preloader { @apply fixed top-0 left-0 w-full h-full bg-background-light dark:bg-background-dark z-[100] flex justify-center items-center; transition: opacity 0.5s ease-in-out; }
-        #preloader.loaded { @apply opacity-0 pointer-events-none; }
-        .preloader-container { @apply flex items-center text-xl md:text-2xl font-medium text-secondary-light dark:text-secondary-dark; }
-        .preloader-word { @apply opacity-0; animation: preloader-fade-in 1.5s forwards; }
-        .preloader-dots span { @apply opacity-0; animation: preloader-dot-fade 1.5s infinite; }
-        .preloader-dots span:nth-child(1) { animation-delay: 0s; }
-        .preloader-dots span:nth-child(2) { animation-delay: 0.2s; }
-        .preloader-dots span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes preloader-fade-in { to { opacity: 1; } }
-        @keyframes preloader-dot-fade { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+      /* Header Nav Link Styles */
+      .nav-link.active {
+        @apply text-primary-light dark:text-primary-dark bg-border-light dark:bg-border-dark;
+      }
 
-        /* Scroll Animation Styles */
-        .scroll-animate { @apply opacity-0 translate-y-5; transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .scroll-animate.is-visible { @apply opacity-100 translate-y-0; }
+      /* Panel Grid */
+      .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-auto-rows: 220px;
+        gap: 1rem;
+      }
+      #shader-grid {
+        grid-template-columns: repeat(8, 1fr);
+      }
 
-        /* Header Nav Link Styles */
-        .nav-link.active { @apply text-primary-light dark:text-primary-dark bg-border-light dark:bg-border-dark; }
-        
-        /* Panel Grid */
-        .panel-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 220px; gap: 1rem; }
-        #shader-grid { grid-template-columns: repeat(8, 1fr); }
+      .panel {
+        @apply bg-border-dark/20 rounded-lg overflow-hidden cursor-pointer relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .panel:hover {
+        @apply transform -translate-y-1 shadow-2xl z-10;
+      }
+      .panel img {
+        @apply w-full h-full object-cover;
+      }
+      .panel-v-1 {
+        grid-row: span 1;
+      }
+      .panel-v-2 {
+        grid-row: span 2;
+      }
+      .panel-h-1 {
+        grid-column: span 1;
+      }
+      .panel-h-2 {
+        grid-column: span 2;
+      }
+      .panel-h-3 {
+        grid-column: span 3;
+      }
+      .panel-h-4 {
+        grid-column: span 4;
+      }
 
-        .panel { @apply bg-border-dark/20 rounded-lg overflow-hidden cursor-pointer relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .panel:hover { @apply transform -translate-y-1 shadow-2xl z-10; }
-        .panel img { @apply w-full h-full object-cover; }
-        .panel-v-1 { grid-row: span 1; }
-        .panel-v-2 { grid-row: span 2; }
-        .panel-h-1 { grid-column: span 1; }
-        .panel-h-2 { grid-column: span 2; } 
-        .panel-h-3 { grid-column: span 3; } 
-        .panel-h-4 { grid-column: span 4; }
-
-        /* Carousel Styles */
-        .carousel { @apply relative; }
-        .carousel-container { @apply overflow-hidden; }
-        .carousel-track { @apply flex transition-transform duration-500 ease-in-out; }
-        .carousel-item { @apply flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2; }
-        .carousel-item .panel { @apply h-64; }
-        .carousel-controls { @apply absolute top-1/3 -translate-y-1/2 w-full flex justify-between items-center px-0 pointer-events-none; }
-        .carousel-controls button {
+      /* Carousel Styles */
+      .carousel {
+        @apply relative;
+      }
+      .carousel-container {
+        @apply overflow-hidden;
+      }
+      .carousel-track {
+        @apply flex transition-transform duration-500 ease-in-out;
+      }
+      .carousel-item {
+        @apply flex-shrink-0 w-full md:w-1/2 lg:w-1/3 px-2;
+      }
+      .carousel-item .panel {
+        @apply h-64;
+      }
+      .carousel-controls {
+        @apply absolute top-1/3 -translate-y-1/2 w-full flex justify-between items-center px-0 pointer-events-none;
+      }
+      .carousel-controls button {
         @apply pointer-events-auto w-16 h-16 flex items-center justify-center rounded-full 
                 bg-[#4A4A4A] dark:bg-[#A1A1AA] 
                 backdrop-blur-sm 
@@ -106,764 +189,1434 @@
                 transition-all duration-200 
                 disabled:opacity-0 disabled:cursor-not-allowed 
                 shadow-lg;
-        }
-        .carousel-controls .material-symbols-outlined { @apply text-4xl; }
-        .carousel-controls .prev-btn { @apply -translate-x-1/2 md:-translate-x-[125%]; }
-        .carousel-controls .next-btn { @apply translate-x-1/2 md:translate-x-[125%]; }
+      }
+      .carousel-controls .material-symbols-outlined {
+        @apply text-4xl;
+      }
+      .carousel-controls .prev-btn {
+        @apply -translate-x-1/2 md:-translate-x-[125%];
+      }
+      .carousel-controls .next-btn {
+        @apply translate-x-1/2 md:translate-x-[125%];
+      }
 
-        /* Responsive adjustments */
-        @media (max-width: 1024px) { .panel-grid { grid-auto-rows: 180px; } }
-        @media (max-width: 768px) {
-            .panel-grid, #shader-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
-            .panel-h-1, .panel-h-2, .panel-h-3, .panel-h-4 { grid-column: span 2; }
-            .panel-v-1, .panel-v-2 { grid-row: span 1; }
+      /* Responsive adjustments */
+      @media (max-width: 1024px) {
+        .panel-grid {
+          grid-auto-rows: 180px;
         }
-
-        /* Modal Styles */
-        #modal-backdrop { @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-[60]; transition: opacity 0.3s ease; }
-        #modal { @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] w-[90vw] max-w-4xl; transition: opacity 0.3s ease, transform 0.3s ease, scale 0.3s ease; }
-        #modal.hidden, #modal-backdrop.hidden { @apply opacity-0 pointer-events-none; }
-        #modal.hidden { @apply scale-95; }
-        #modal .modal-body { @apply bg-background-light dark:bg-background-dark rounded-lg shadow-2xl overflow-hidden md:flex max-h-[80vh] md:h-[500px]; }
-        .modal-content-animate { @apply opacity-0 translate-y-2; transition: opacity 0.4s ease-out, transform 0.4s ease-out; }
-        .modal-content-animate.is-active { @apply opacity-100 translate-y-0; }
-
-        /* Hamburger Menu Animation */
-        #mobile-menu { @apply md:hidden absolute top-full left-0 w-full bg-background-light dark:bg-background-dark border-t border-border-light dark:border-border-dark transition-all duration-300 ease-in-out max-h-0 overflow-hidden; }
-        #mobile-menu.open { @apply max-h-screen; }
-        /* Static Hamburger Icon */
-        .hamburger-icon .hamburger-line { @apply block h-0.5 w-6 bg-current transition-all duration-300; }
-        .hamburger-icon .hamburger-line:not(:last-child) { @apply mb-1.5; }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { @apply bg-transparent; }
-        ::-webkit-scrollbar-thumb { @apply bg-border-light dark:bg-border-dark rounded-full; }
-        ::-webkit-scrollbar-thumb:hover { @apply bg-secondary-light dark:bg-secondary-dark; }
-
-        /* Material Symbols sizing helper */
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; @apply align-middle; }
-
-        /* Hero Video Background */
-        #hero-video-bg { @apply absolute top-0 left-0 w-full h-full object-cover z-[-2]; }
-        #hero::before {
-            content: '';
-            @apply absolute top-0 left-0 w-full h-full bg-black/60 z-[-1];
+      }
+      @media (max-width: 768px) {
+        .panel-grid,
+        #shader-grid {
+          grid-template-columns: repeat(2, 1fr);
+          grid-auto-rows: 180px;
         }
-        #hero::after {
-            content: '';
-            @apply absolute top-0 left-0 w-full h-full backdrop-blur-xl z-[-1];
+        .panel-h-1,
+        .panel-h-2,
+        .panel-h-3,
+        .panel-h-4 {
+          grid-column: span 2;
         }
-        /* Profile image engagement */
-        .profile-image-wrapper { @apply relative; }
-        .profile-image-wrapper img { @apply transition-transform duration-300; }
-        .profile-image-wrapper:hover img { @apply scale-105; }
-        .profile-image-wrapper::after {
-            content: '';
-            @apply absolute inset-0 rounded-full transition-all duration-300;
-            box-shadow: 0 0 0 0 rgba(161, 161, 170, 0.4);
+        .panel-v-1,
+        .panel-v-2 {
+          grid-row: span 1;
         }
-        .profile-image-wrapper:hover::after {
-            box-shadow: 0 0 25px 10px rgba(161, 161, 170, 0);
-        }
+      }
 
-        /* Keyboard shortcut hint */
-        .kbd-hint { @apply fixed bottom-5 left-5 z-50 bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark px-3 py-1.5 rounded-md text-xs font-mono shadow-lg transition-all duration-500 opacity-0 translate-y-4; }
-        .kbd-hint.show { @apply opacity-100 translate-y-0; }
-        .kbd-hint kbd { @apply font-sans font-bold; }
+      /* Modal Styles */
+      #modal-backdrop {
+        @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-[60];
+        transition: opacity 0.3s ease;
+      }
+      #modal {
+        @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] w-[90vw] max-w-4xl;
+        transition: opacity 0.3s ease, transform 0.3s ease, scale 0.3s ease;
+      }
+      #modal.hidden,
+      #modal-backdrop.hidden {
+        @apply opacity-0 pointer-events-none;
+      }
+      #modal.hidden {
+        @apply scale-95;
+      }
+      #modal .modal-body {
+        @apply bg-background-light dark:bg-background-dark rounded-lg shadow-2xl overflow-hidden md:flex max-h-[80vh] md:h-[500px];
+      }
+      .modal-content-animate {
+        @apply opacity-0 translate-y-2;
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+      }
+      .modal-content-animate.is-active {
+        @apply opacity-100 translate-y-0;
+      }
+
+      /* Hamburger Menu Animation */
+      #mobile-menu {
+        @apply md:hidden absolute top-full left-0 w-full bg-background-light dark:bg-background-dark border-t border-border-light dark:border-border-dark transition-all duration-300 ease-in-out max-h-0 overflow-hidden;
+      }
+      #mobile-menu.open {
+        @apply max-h-screen;
+      }
+      /* Static Hamburger Icon */
+      .hamburger-icon .hamburger-line {
+        @apply block h-0.5 w-6 bg-current transition-all duration-300;
+      }
+      .hamburger-icon .hamburger-line:not(:last-child) {
+        @apply mb-1.5;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        @apply bg-transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        @apply bg-border-light dark:bg-border-dark rounded-full;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        @apply bg-secondary-light dark:bg-secondary-dark;
+      }
+
+      /* Material Symbols sizing helper */
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 24;
+        @apply align-middle;
+      }
+
+      /* Hero Video Background */
+      #hero-video-bg {
+        @apply absolute top-0 left-0 w-full h-full object-cover z-[-2];
+      }
+      #hero::before {
+        content: "";
+        @apply absolute top-0 left-0 w-full h-full bg-black/60 z-[-1];
+      }
+      #hero::after {
+        content: "";
+        @apply absolute top-0 left-0 w-full h-full backdrop-blur-xl z-[-1];
+      }
+      /* Profile image engagement */
+      .profile-image-wrapper {
+        @apply relative;
+      }
+      .profile-image-wrapper img {
+        @apply transition-transform duration-300;
+      }
+      .profile-image-wrapper:hover img {
+        @apply scale-105;
+      }
+      .profile-image-wrapper::after {
+        content: "";
+        @apply absolute inset-0 rounded-full transition-all duration-300;
+        box-shadow: 0 0 0 0 rgba(161, 161, 170, 0.4);
+      }
+      .profile-image-wrapper:hover::after {
+        box-shadow: 0 0 25px 10px rgba(161, 161, 170, 0);
+      }
+
+      /* Keyboard shortcut hint */
+      .kbd-hint {
+        @apply fixed bottom-5 left-5 z-50 bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark px-3 py-1.5 rounded-md text-xs font-mono shadow-lg transition-all duration-500 opacity-0 translate-y-4;
+      }
+      .kbd-hint.show {
+        @apply opacity-100 translate-y-0;
+      }
+      .kbd-hint kbd {
+        @apply font-sans font-bold;
+      }
     </style>
-</head>
+  </head>
 
-<body class="antialiased">
+  <body class="antialiased">
     <!-- =========== Preloader =========== -->
     <div id="preloader">
-        <div class="preloader-container">
-            <span class="preloader-word">Loading</span>
-            <span class="preloader-dots">
-                <span>.</span><span>.</span><span>.</span>
-            </span>
-        </div>
+      <div class="preloader-container">
+        <span class="preloader-word">Loading</span>
+        <span class="preloader-dots">
+          <span>.</span><span>.</span><span>.</span>
+        </span>
+      </div>
     </div>
 
     <!-- =========== Header =========== -->
-    <header id="main-header"
-        class="fixed top-0 left-0 w-full z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
-        <div class="container mx-auto px-6 h-16 flex justify-center items-center relative">
-            <!-- Centered Desktop Navigation -->
-            <nav class="hidden md:flex items-center justify-center space-x-2">
-                <a href="#about"
-                    class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"><span
-                        class="material-symbols-outlined">person</span><span>About</span></a>
-                <a href="#shaders"
-                    class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"><span
-                        class="material-symbols-outlined">view_in_ar</span><span>Shaders</span></a>
-                <a href="#games"
-                    class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"><span
-                        class="material-symbols-outlined">stadia_controller</span><span>Games</span></a>
-                <a href="#art"
-                    class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"><span
-                        class="material-symbols-outlined">palette</span><span>Art</span></a>
-                <a href="#contact"
-                    class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"><span
-                        class="material-symbols-outlined">mail</span><span>Contact</span></a>
-            </nav>
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden absolute right-3 top-1/2 -translate-y-1/2 z-10">
-                <button id="mobile-menu-button"
-                    class="w-12 h-12 flex items-center justify-center focus:outline-none text-primary-light dark:text-primary-dark">
-                    <span class="sr-only">Open main menu</span>
-                    <div class="hamburger-icon">
-                        <span class="hamburger-line"></span>
-                        <span class="hamburger-line"></span>
-                        <span class="hamburger-line"></span>
-                    </div>
-                </button>
+    <header
+      id="main-header"
+      class="fixed top-0 left-0 w-full z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark"
+    >
+      <div
+        class="container mx-auto px-6 h-16 flex justify-center items-center relative"
+      >
+        <!-- Centered Desktop Navigation -->
+        <nav class="hidden md:flex items-center justify-center space-x-2">
+          <a
+            href="#about"
+            class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+            ><span class="material-symbols-outlined">person</span
+            ><span>About</span></a
+          >
+          <a
+            href="#shaders"
+            class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+            ><span class="material-symbols-outlined">view_in_ar</span
+            ><span>Shaders</span></a
+          >
+          <a
+            href="#games"
+            class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+            ><span class="material-symbols-outlined">stadia_controller</span
+            ><span>Games</span></a
+          >
+          <a
+            href="#art"
+            class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+            ><span class="material-symbols-outlined">palette</span
+            ><span>Art</span></a
+          >
+          <a
+            href="#contact"
+            class="nav-link flex items-center space-x-2 px-4 py-2 rounded-md text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors"
+            ><span class="material-symbols-outlined">mail</span
+            ><span>Contact</span></a
+          >
+        </nav>
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden absolute right-3 top-1/2 -translate-y-1/2 z-10">
+          <button
+            id="mobile-menu-button"
+            class="w-12 h-12 flex items-center justify-center focus:outline-none text-primary-light dark:text-primary-dark"
+          >
+            <span class="sr-only">Open main menu</span>
+            <div class="hamburger-icon">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
             </div>
+          </button>
         </div>
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu">
-            <a href="#about"
-                class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"><span
-                    class="material-symbols-outlined">person</span><span>About</span></a>
-            <a href="#shaders"
-                class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"><span
-                    class="material-symbols-outlined">view_in_ar</span><span>Shaders</span></a>
-            <a href="#games"
-                class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"><span
-                    class="material-symbols-outlined">stadia_controller</span><span>Games</span></a>
-            <a href="#art"
-                class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"><span
-                    class="material-symbols-outlined">palette</span><span>Art</span></a>
-            <a href="#contact"
-                class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"><span
-                    class="material-symbols-outlined">mail</span><span>Contact</span></a>
-        </div>
+      </div>
+      <!-- Mobile Menu Panel -->
+      <div id="mobile-menu">
+        <a
+          href="#about"
+          class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"
+          ><span class="material-symbols-outlined">person</span
+          ><span>About</span></a
+        >
+        <a
+          href="#shaders"
+          class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"
+          ><span class="material-symbols-outlined">view_in_ar</span
+          ><span>Shaders</span></a
+        >
+        <a
+          href="#games"
+          class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"
+          ><span class="material-symbols-outlined">stadia_controller</span
+          ><span>Games</span></a
+        >
+        <a
+          href="#art"
+          class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"
+          ><span class="material-symbols-outlined">palette</span
+          ><span>Art</span></a
+        >
+        <a
+          href="#contact"
+          class="flex items-center justify-center space-x-3 py-3 px-6 text-secondary-light dark:text-secondary-dark hover:bg-border-light dark:hover:bg-border-dark transition-colors"
+          ><span class="material-symbols-outlined">mail</span
+          ><span>Contact</span></a
+        >
+      </div>
     </header>
 
     <main>
-        <!-- =========== Hero Section =========== -->
-        <section id="hero"
-            class="h-screen w-full flex flex-col justify-center items-center text-center p-6 relative overflow-hidden">
-            <video id="hero-video-bg" autoplay loop muted playsinline>
-                <source src="video/hero.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="z-10 flex flex-col items-center">
-                <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 scroll-animate">Hi! I'm Ymne!</h1>
-                <p class="text-lg md:text-xl text-secondary-dark mb-8 scroll-animate" style="transition-delay: 150ms;">
-                    Graphics Programmer &middot; Game Developer &middot; Artist</p>
-                <div class="flex justify-center space-x-8 mb-8 scroll-animate" style="transition-delay: 300ms;">
-                    <span class="material-symbols-outlined text-3xl text-secondary-dark"
-                        title="Graphics Programmer">view_in_ar</span>
-                    <span class="material-symbols-outlined text-3xl text-secondary-dark"
-                        title="Game Developer">stadia_controller</span>
-                    <span class="material-symbols-outlined text-3xl text-secondary-dark" title="Artist">palette</span>
-                </div>
+      <!-- =========== Hero Section =========== -->
+      <section
+        id="hero"
+        class="h-screen w-full flex flex-col justify-center items-center text-center p-6 relative overflow-hidden"
+      >
+        <video id="hero-video-bg" autoplay loop muted playsinline>
+          <source src="video/hero.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="z-10 flex flex-col items-center">
+          <h1
+            class="text-5xl md:text-7xl font-bold text-white mb-4 scroll-animate"
+          >
+            Hi! I'm Ymne!
+          </h1>
+          <p
+            class="text-lg md:text-xl text-secondary-dark mb-8 scroll-animate"
+            style="transition-delay: 150ms"
+          >
+            Graphics Programmer &middot; Game Developer &middot; Artist
+          </p>
+          <div
+            class="flex justify-center space-x-8 mb-8 scroll-animate"
+            style="transition-delay: 300ms"
+          >
+            <span
+              class="material-symbols-outlined text-3xl text-secondary-dark"
+              title="Graphics Programmer"
+              >view_in_ar</span
+            >
+            <span
+              class="material-symbols-outlined text-3xl text-secondary-dark"
+              title="Game Developer"
+              >stadia_controller</span
+            >
+            <span
+              class="material-symbols-outlined text-3xl text-secondary-dark"
+              title="Artist"
+              >palette</span
+            >
+          </div>
+        </div>
+        <div
+          class="absolute bottom-10 animate-bounce z-10 flex flex-col items-center"
+        >
+          <a href="#about" aria-label="Scroll down"
+            ><span
+              class="material-symbols-outlined text-6xl text-secondary-dark"
+              >keyboard_arrow_down</span
+            ></a
+          >
+        </div>
+        <div class="absolute bottom-10 z-10 flex flex-col items-center">
+          <p class="text-sm text-secondary-dark mt-2">Scroll to continue</p>
+        </div>
+      </section>
+
+      <!-- =========== About Section =========== -->
+      <section
+        id="about"
+        class="min-h-screen flex flex-col items-center justify-center py-20 md:py-24"
+      >
+        <div class="container mx-auto px-6">
+          <div
+            class="flex flex-col md:flex-row md:items-center md:gap-16 text-center md:text-left max-w-6xl mx-auto"
+          >
+            <div
+              class="flex flex-col items-center md:w-1/3 lg:w-1/4 mb-10 md:mb-0 flex-shrink-0"
+            >
+              <div
+                class="profile-image-wrapper w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 scroll-animate"
+              >
+                <img
+                  src="https://avatars.githubusercontent.com/u/126408995?v=4"
+                  alt="ProfileName"
+                  class="rounded-full w-full h-full object-cover shadow-lg"
+                />
+              </div>
+              <h2
+                class="text-3xl md:text-4xl font-bold mt-6 md:mb-2 flex items-center justify-center md:justify-start gap-3"
+              >
+                <span class="material-symbols-outlined !text-4xl">person</span
+                ><span>Ymne</span>
+              </h2>
+              <p
+                class="text-md text-secondary-light dark:text-secondary-dark max-w-xs scroll-animate"
+                style="transition-delay: 250ms"
+              >
+                ハンバーガー🍔
+              </p>
             </div>
-            <div class="absolute bottom-10 animate-bounce z-10 flex flex-col items-center">
-                <a href="#about" aria-label="Scroll down"><span
-                        class="material-symbols-outlined text-6xl text-secondary-dark">keyboard_arrow_down</span></a>
+
+            <div
+              class="scroll-animate md:w-2/3 lg:w-3/4"
+              style="transition-delay: 150ms"
+            >
+              <h3
+                class="text-2xl md:text-2xl font-semibold mb-8 text-primary-light dark:text-primary-dark"
+              >
+                Game Development & Graphics Programming
+              </h3>
+              <p
+                class="text-lg text-secondary-light dark:text-secondary-dark mb-6"
+              >
+                I’m a graphics programmer and game developer with a focus on
+                Unity. I’m proficient in Unity (BRP, URP, HDRP) and familiar
+                with Godot (GDScript) and Unreal Engine (C++). I enjoy
+                experimenting with gameplay mechanics, exploring lighting
+                systems, and optimizing performance, often testing ideas through
+                focused play sessions.
+              </p>
+
+              <p
+                class="text-lg text-secondary-light dark:text-secondary-dark mb-12"
+              >
+                Currently, I’m developing custom shaders using ShaderLab HLSL
+                (Unity) and GLSL (personal projects), while also expanding my
+                understanding of GPU performance analysis with NVIDIA Nsight.
+              </p>
+
+              <h3
+                class="text-2xl md:text-2xl font-semibold mb-8 text-primary-light dark:text-primary-dark"
+              >
+                Digital Art & Animation
+              </h3>
+              <p
+                class="text-lg text-secondary-light dark:text-secondary-dark mb-6"
+              >
+                Alongside programming, I also create 2D art and animations. I
+                use tools such as Photoshop, OpenToonz, Medibang Paint, and
+                Blender for both 2D and 3D artwork.
+              </p>
+
+              <p
+                class="text-lg text-secondary-light dark:text-secondary-dark max-w-2xl md:max-w-none mt-6"
+              >
+                Anyway, enjoy the site, and feel free to contact or follow me if
+                you want to chat!
+              </p>
             </div>
-            <div class="absolute bottom-10 z-10 flex flex-col items-center">
-                <p class="text-sm text-secondary-dark mt-2">Scroll to continue</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shaders Section -->
+      <section
+        id="shaders"
+        class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt"
+      >
+        <div class="container mx-auto px-6">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span class="material-symbols-outlined !text-4xl">view_in_ar</span
+            ><span>Shaders, Tutorials, & Graphics</span>
+          </h2>
+
+          <h3
+            class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span>Unity Engine BRP - YmneLightingFX</span>
+          </h3>
+
+          <!-- YmneFX -->
+          <div id="shader-grid" class="panel-grid mb-12">
+            <div
+              class="panel scroll-animate panel-h-4 panel-v-2"
+              data-title="Screen Space Global Illumination + Ambient Occlusion"
+              data-description="Integration of SSGI and SSAO using Temporal Reprojection. Still a work in progress and not production-ready."
+              data-link=""
+              data-image="video/shader/Shader_13.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_13.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Screen Space Global Illumination + Ambient Occlusion [WIP]
+                </h4>
+              </div>
             </div>
-        </section>
 
-        <!-- =========== About Section =========== -->
-        <section id="about" class="min-h-screen flex flex-col items-center justify-center py-20 md:py-24">
-            <div class="container mx-auto px-6">
-                <div
-                    class="flex flex-col md:flex-row md:items-center md:gap-16 text-center md:text-left max-w-6xl mx-auto">
-
-                    <div class="flex flex-col items-center md:w-1/3 lg:w-1/4 mb-10 md:mb-0 flex-shrink-0">
-                        <div class="profile-image-wrapper w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 scroll-animate">
-                            <img src="https://avatars.githubusercontent.com/u/126408995?v=4" alt="ProfileName"
-                                class="rounded-full w-full h-full object-cover shadow-lg">
-                        </div>
-                        <h2
-                            class="text-3xl md:text-4xl font-bold mt-6 md:mb-2 flex items-center justify-center md:justify-start gap-3">
-                            <span class="material-symbols-outlined !text-4xl">person</span><span>Ymne</span>
-                        </h2>
-                        <p class="text-md text-secondary-light dark:text-secondary-dark max-w-xs scroll-animate"
-                            style="transition-delay: 250ms;">
-                            ハンバーガー🍔
-                        </p>
-                    </div>
-
-                    <div class="scroll-animate md:w-2/3 lg:w-3/4" style="transition-delay: 150ms;">
-
-
-                        <h3 class="text-2xl md:text-2xl font-semibold mb-8 text-primary-light dark:text-primary-dark">
-                            Game Development & Graphics Programming
-                        </h3>
-                        <p class="text-lg text-secondary-light dark:text-secondary-dark mb-12">
-                            I'm proficient in Unity (Built-in, URP, HDRP), familiar with Godot (GDScript), and Unreal
-                            Engine (C++). I enjoy experimenting with gameplay mechanics, lighting systems, and
-                            optimization. My work includes custom shader development using ShaderLab, HLSL (Unity),
-                            GLSL, Compute, and Cginc, alongside understanding GPU performance analysis with NVIDIA
-                            Nsight.
-                        </p>
-
-                        <h3 class="text-2xl md:text-2xl font-semibold mb-8 text-primary-light dark:text-primary-dark">
-                            Digital Art & Animation
-                        </h3>
-                        <p class="text-lg text-secondary-light dark:text-secondary-dark mb-8">
-                            Alongside programming, I create 2D art and animations (even if they’re not that good). I use
-                            tools like Photoshop, OpenToonz, Medibang Paint, and Blender for 2D and 3D art.
-                        </p>
-
-                        <p class="text-lg text-secondary-light dark:text-secondary-dark max-w-2xl md:max-w-none mt-6">
-                            Anyway, enjoy the site, and feel free to contact or follow me if you want to chat!
-                        </p>
-                    </div>
-                </div>
+            <div
+              class="panel scroll-animate panel-h-4 panel-v-2"
+              data-title="Ymne PBR (Deferred Support)"
+              data-description="A physically-based rendering (PBR) shader with GGX BRDF implementation for Unity's Built-in Render Pipeline (BRP) with Deferred Support. Still a work in progress and not production-ready."
+              data-link=""
+              data-image="video/shader/Shader_14.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_14.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Ymne PBR (Deferred Support) [WIP]
+                </h4>
+              </div>
             </div>
-        </section>
 
-        <!-- Shaders Section -->
-        <section id="shaders" class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt">
-            <div class="container mx-auto px-6">
-                <h2
-                    class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3">
-                    <span class="material-symbols-outlined !text-4xl">view_in_ar</span><span>Shaders, Tutorials, &
-                        Graphics</span>
-                </h2>
-
-                <h3
-                    class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3">
-                    <span>YmneFX</span>
-                </h3>
-
-                <!-- YmneFX -->
-                <div id="shader-grid" class="panel-grid mb-12">
-                    
-                    <div class="panel scroll-animate panel-h-4 panel-v-2" data-title="Screen Space Global Illumination + Ambient Occlusion"
-                        data-description="Integration of SSGI and SSAO using Temporal Reprojection. Still a work in progress and not production-ready."
-                        data-link=""
-                        data-image="video/shader/Shader_13.mp4"><video data-src="video/shader/Shader_13.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Screen Space Global Illumination + Ambient Occlusion (WIP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-4 panel-v-2" data-title="Ymne PBR (Deferred Support)"
-                        data-description="A physically-based rendering (PBR) shader with GGX BRDF implementation for Unity's Built-in Render Pipeline (BRP) with Deferred Support. Still a work in progress and not production-ready."
-                        data-link=""
-                        data-image="video/shader/Shader_14.mp4"><video data-src="video/shader/Shader_14.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Ymne PBR (Deferred Support) (WIP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Screen Space Reflection"
-                        data-description="Screen Space Reflection with diffuse material support [requires custom Deferred Ymne-PBR]. Still a work in progress and not production-ready."
-                        data-link=""
-                        data-image="video/shader/Shader_10.mp4"><video data-src="video/shader/Shader_10.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Screen Space Reflection (WIP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Procedural Volumetric Clouds Shader"
-                        data-description="Volumetric raymarching clouds using Worley noise, FBM, and Curl noise. Beer’s law and additional calculations are also integrated. Still a work in progress and not production-ready."
-                        data-link=""
-                        data-image="video/shader/Shader_9.mp4"><video data-src="video/shader/Shader_9.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Procedural Volumetric Clouds Shader (WIP)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Procedural Skybox Shader"
-                        data-description="A fully procedural skybox shader for Unity's Built-in Render Pipeline (BRP). Generates dynamic skies with adjustable parameters for time of day, atmospheric scattering, and horizon blending."
-                        data-link="https://github.com/Ymne22/Procedural-Skybox-For-Unity-BRP"
-                        data-image="video/shader/Shader_8.mp4"><video data-src="video/shader/Shader_8.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Procedural Skybox Shader</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Screen Space Directional Contact Shadow"
-                        data-description="Simple SSDCS. Still a work in progress and still in a broken phase."
-                        data-link=""
-                        data-image="video/shader/Shader_12.mp4"><video data-src="video/shader/Shader_12.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Screen Space Directional Contact Shadow (WIP)</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <h3
-                    class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3">
-                    <span>Ymne StylizedFX</span>
-                </h3>
-
-                <!-- StylizedFX -->
-                <div id="shader-grid" class="panel-grid mb-12">
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="PSX Shader Pack"
-                        data-description="A collection of PlayStation 1-inspired shaders for Unity's Built-in Render Pipeline (BRP), designed to replicate the visual style of early PSX. This pack includes fog effects, vertex jittering and affine texture (material based), dithered transparency, pixelation, and color quantization."
-                        data-link="https://github.com/Ymne22/PSX-Shaders-for-Unity-Built-in-RP"
-                        data-image="video/shader/Shader_4.mp4"><video data-src="video/shader/Shader_4.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">PSX Shader
-                                Pack</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-4 panel-v-2" data-title="Cel Shading Shader"
-                        data-description="A custom cel-shading shader designed for anime/MMD-style characters in Unity. Supports features like hard-edge lighting, SSS (subsurface scattering), rim lighting, double-sided rendering, and more."
-                        data-link="https://github.com/Ymne22/Cel-Shading-Shader-for-Unity-BRP"
-                        data-image="video/shader/Shader_1.mp4"><video data-src="video/shader/Shader_1.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Cel Shading Shader</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2"
-                        data-title="Water Material Shader"
-                        data-description="A water shader made for Unity, featuring physically-inspired light interaction, screen-space reflections, foam, Gerstner waves, and more."
-                        data-link="https://github.com/Ymne22/Water-Material-Shader-for-Unity-BRP"
-                        data-image="video/shader/Shader_5.mp4"><video data-src="video/shader/Shader_5.mp4" 
-                            muted playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Water
-                                Material Shader</h4>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Other Projects -->
-                <h3
-                    class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3">
-                    <span>Other Shaders</span>
-                </h3>
-                <div class="carousel max-w-7xl mx-auto mb-16" data-section="art">
-                    <div class="carousel-container">
-                        <div class="carousel-track -mx-2">
-                            <div class="carousel-item">
-                                <div class="panel" data-title="Software Raytracing"
-                                    data-description="This project explores a real-time software-based ray tracer built from scratch in Unity, leveraging compute shaders instead of relying on hardware-accelerated ray tracing APIs. It implements a simple Bounding Volume Hierarchy (BVH), recursive light transport including reflections and indirect lighting, and a procedural sky."
-                                    data-link="https://github.com/Ymne22/Real-Time-Software-Ray-Tracing-in-Unity-BRP"
-                                    data-image="video/shader/Shader_2.mp4"><video data-src="video/shader/Shader_2.mp4"
-                                        muted playsinline class="w-full h-full object-cover"></video>
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            Software Raytracing</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="Physically-Based Rendering (PBR) shader with custom GGX BRDF [Legacy]"
-                                    data-description="A physically-based rendering (PBR) shader with GGX BRDF implementation for Unity's Built-in Render Pipeline (BRP) [Forward Only]"
-                                    data-link="https://github.com/Ymne22/Custom-GGX-PBR-Shader-for-Unity-BRP"
-                                    data-image="video/shader/Shader_7.mp4"><video data-src="video/shader/Shader_7.mp4"
-                                        muted playsinline class="w-full h-full object-cover"></video>
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            Physically-Based Rendering (PBR) shader with custom GGX BRDF [Legacy]</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="Screen Space Global Illumination [Legacy]"
-                                    data-description="A simple and lightweight implementation of Screen Space Global Illumination (SSGI) for Unity's Built-in Render Pipeline (BRP). It features a fully ray-marching approach and provides both global illumination and ambient occlusion support with minimal setup and no external dependencies."
-                                    data-link="https://github.com/Ymne22/Screen-Space-Global-Illumination-SSGI-for-Unity-Built-in-RP"
-                                    data-image="video/shader/Shader_3.mp4"><video data-src="video/shader/Shader_3.mp4"
-                                        muted playsinline class="w-full h-full object-cover"></video>
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            Screen Space Global Illumination [Legacy]</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="Combination of APV and Precomputed GI Enlighten"
-                                    data-description="Breakdown on combining APV and Precomputed GI (Enlighten) in Unity HDRP, The links are broken, consider fixing them if really needed."
-                                    data-link=""
-                                    data-image="video/shader/Shader_6.mp4"><video data-src="video/shader/Shader_6.mp4"
-                                        muted playsinline class="w-full h-full object-cover"></video>
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            Combination of APV and Precomputed GI Enlighten</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-controls mt-8">
-                        <button class="prev-btn"><span class="material-symbols-outlined">chevron_left</span></button>
-                        <button class="next-btn"><span class="material-symbols-outlined">chevron_right</span></button>
-                    </div>
-                </div>
-
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="Screen Space Reflection"
+              data-description="Screen Space Reflection with diffuse material support [requires custom Deferred Ymne-PBR]. Still a work in progress and not production-ready."
+              data-link=""
+              data-image="video/shader/Shader_10.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_10.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Screen Space Reflection [WIP]
+                </h4>
+              </div>
             </div>
-        </section>
 
-        <!-- =========== Games Section =========== -->
-        <section id="games" class="py-20 md:py-32">
-            <div class="container mx-auto px-6">
-                <h2
-                    class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3">
-                    <span class="material-symbols-outlined !text-4xl">stadia_controller</span><span>Games &
-                        Devlogs</span>
-                </h2>
-                <!-- Highlighted Projects -->
-                <div class="panel-grid mb-12">
-                    <div class="panel scroll-animate panel-h-4 panel-v-2" data-title="Holo-Attack"
-                        data-description="HoloAttack! is a fast-paced combo-stacking game where you demolish landmarks and buildings using unique skills on each characters. Play as the Hololive EN Myth members, Gura, Ame, Ina, Kiara, and Calli as you chain combos to achieve your goal. The game features a variety of destructible buildings that add strategic depth to the gameplay... Canceled since Gura has already graduated and Ame is now just affiliated"
-                        data-link="https://ymne22.itch.io/project-hl-atk" data-image="/Portfolio-Ymne/video/game/Game_1.mp4"><video data-src="video/game/Game_1.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Holo-Attack</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Kanna and Lia the Witch"
-                        data-description="This game is an action-platforming game, with a prototype boss featuring bullet hell mechanics. Designed as a prototype to explore gameplay ideas and technical challenges"
-                        data-link="https://ymne22.itch.io/kanna-and-lia-the-witch" data-image="video/game/Game_2.mp4">
-                        <video data-src="video/game/Game_2.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Kanna and Lia the
-                                Witch</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-3 panel-v-1"
-                        data-title="Random Devlogs - HL2 Movement with Gravity Shift"
-                        data-description="Testing and having fun with gravity shifting as a main mechanic. It was meant to be free-rotating, but all 5 playtesters felt nauseous, so I switched to 90° snaps and they preferred it. Ignore the HL2 SFX as placeholders and APV leaks, it's just a prototype. This was made only for fun."
-                        data-link="https://x.com/ymne22/status/1928058280510623768" data-image="video/game/Game_3.mp4">
-                        <video data-src="video/game/Game_3.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Random
-                                Devlogs - HL2 Movement with Gravity Shift</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-3 panel-v-1"
-                        data-title="Random Devlogs - Vampire Survivor Mechanics"
-                        data-description="This mechanic was originally meant for something else, but I ended up making this instead, just experimenting with how it could be used differently. I made it just for fun, not planning to release it."
-                        data-link="https://x.com/ymne22/status/1939998659409760522" data-image="video/game/Game_4.mp4">
-                        <video data-src="video/game/Game_4.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Random
-                                Devlogs - Vampire Survivor Mechanics</h4>
-                        </div>
-                    </div>
-                </div>
-                <h3
-                    class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3">
-                    <span>Only self-published or self-documented work is included, game jams and other collaborations are excluded.</span>
-                </h3>
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="Voxel Based Volumetric Light"
+              data-description="A volumetric light uses voxel calculations and integrates CPU or GPU voxelization acceleration, support in realtime or baked. Still a work in progress and not production-ready."
+              data-link=""
+              data-image="video/shader/Shader_15.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_15.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Voxel Based Volumetric Light [WIP]
+                </h4>
+              </div>
             </div>
-        </section>
 
-        <!-- Art Section -->
-        <section id="art" class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt">
-            <div class="container mx-auto px-6">
-                <h2
-                    class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3">
-                    <span class="material-symbols-outlined !text-4xl">palette</span><span>Animation &
-                        Illustrations</span>
-                </h2>
-                <!-- Highlighted Projects -->
-                <h3
-                    class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3">
-                    <span>Animation Highlight</span>
-                </h3>
-                <div class="panel-grid mb-12">
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Gawr Gura Animation 1"
-                        data-description="an old looping animation. I don't remember exactly, but I think I made it within an hour (or maybe a day?)... A :D"
-                        data-link="https://x.com/ymne22/status/1886274261704429822" data-image="video/art/Art_4.mp4">
-                        <video data-src="video/art/Art_4.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Gawr Gura Animation 1
-                            </h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Summer Animation (2023)"
-                        data-description="Short Animation Study in 2023" data-link="#" data-image="video/art/Art_6.mp4">
-                        <video data-src="video/art/Art_6.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Summer Animation
-                                (2023)</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-2" data-title="Background Animation Practice"
-                        data-description="Using 3DLO as reference, and then redraw again, Background Animation Practice"
-                        data-link="https://youtu.be/oD7ZGUneGuA" data-image="video/art/Art_5.mp4"><video
-                            data-src="video/art/Art_5.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Background Animation
-                                Practice</h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-3 panel-v-1" data-title="Gawr Gura Animation 2"
-                        data-description="I made this animation for Gawr Gura’s graduation... A~"
-                        data-link="https://x.com/ymne22/status/1912520993480036610/video/1"
-                        data-image="video/art/Art_1.mp4"><video data-src="video/art/Art_1.mp4"  muted
-                            playsinline class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Gawr Gura Animation 2
-                            </h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-2 panel-v-1" data-title="Smol Myth Animation"
-                        data-description="Random animate, I used a 3D smoll Ina model as a rough reference, just rotating it randomly to see how the bottom side would look in 3D space"
-                        data-link="https://x.com/ymne22/status/1886772939456176337" data-image="video/art/Art_3.mp4">
-                        <video data-src="video/art/Art_3.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">Smol Myth Animation
-                            </h4>
-                        </div>
-                    </div>
-
-                    <div class="panel scroll-animate panel-h-1 panel-v-1" data-title="CSM Random Animation"
-                        data-description="Random animation i've been made, It sucks because I scrapped a lot of rough layouts, especially the 'running' part. It was inspired by a trailer I watched back then."
-                        data-link="https://x.com/ymne22/status/1886278304325595410" data-image="video/art/Art_2.mp4">
-                        <video data-src="video/art/Art_2.mp4" muted playsinline
-                            class="w-full h-full object-cover"></video>
-                        <div class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                            <h4 class="text-white text-xs font-semibold uppercase tracking-wider">CSM Random Animation
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Standard Projects Carousel -->
-                <h3
-                    class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3">
-                    <span>'Holo-Attack' Materials</span>
-                </h3>
-                <div class="carousel max-w-7xl mx-auto mb-16" data-section="art">
-                    <div class="carousel-container">
-                        <div class="carousel-track -mx-2">
-                            <div class="carousel-item">
-                                <div class="panel" data-title="'Holo-Attack' Loading Animation"
-                                    data-description="Gura walk cycle 2D animation as a loading indicator."
-                                    data-link="https://x.com/ymne22/status/1886775044036288616"
-                                    data-image="video/art/HL-ATK/Art_1.mp4"><video data-src="video/art/HL-ATK/Art_1.mp4"
-                                        muted playsinline class="w-full h-full object-cover"></video>
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            'Holo-Attack' Loading Animation</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="'Holo-Attack' Menu Concept"
-                                    data-description="Concept art for Holo-Attack Main Menu."
-                                    data-link="https://x.com/ymne22/status/1894217133300879457/"
-                                    data-image="image/art/HL-ATK/art_1.jpg"><img src="image/art/HL-ATK/art_1.jpg">
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            'Holo-Attack' Menu Concept</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="'Holo-Attack' Character Selection Concept"
-                                    data-description="Concept art for Holo-Attack Character Selection."
-                                    data-link="https://x.com/ymne22/status/1894217133300879457/"
-                                    data-image="image/art/HL-ATK/art_2.jpg"><img src="image/art/HL-ATK/art_2.jpg">
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            'Holo-Attack' Character Selection Concept</h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="carousel-item">
-                                <div class="panel" data-title="'Holo-Attack' Character Sprites Set"
-                                    data-description="Sprites set art for Holo-Attack Characters." data-link="#"
-                                    data-image="image/art/HL-ATK/art_3.jpg"><img src="image/art/HL-ATK/art_3.jpg">
-                                    <div
-                                        class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg">
-                                        <h4 class="text-white text-xs font-semibold uppercase tracking-wider">
-                                            'Holo-Attack' Character Sprites Set</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-controls mt-8">
-                        <button class="prev-btn"><span class="material-symbols-outlined">chevron_left</span></button>
-                        <button class="next-btn"><span class="material-symbols-outlined">chevron_right</span></button>
-                    </div>
-                </div>
-                
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-1"
+              data-title="Volumetric Atmosphere Clouds and Global Fog"
+              data-description="Includes global fog and volumetric raymarched clouds using Worley noise, FBM, and curl noise, with Beer’s law and additional calculations integrated. Still a work in progress and not production-ready."
+              data-link=""
+              data-image="video/shader/Shader_9.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_9.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Volumetric Atmosphere Clouds and Global Fog [WIP]
+                </h4>
+              </div>
             </div>
-        </section>
+
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-1"
+              data-title="Procedural Skybox Shader"
+              data-description="A fully procedural skybox shader for Unity's Built-in Render Pipeline (BRP). Generates dynamic skies with adjustable parameters for time of day, atmospheric scattering, and horizon blending."
+              data-link="https://github.com/Ymne22/Procedural-Skybox-For-Unity-BRP"
+              data-image="video/shader/Shader_8.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_8.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Procedural Skybox Shader
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-4 panel-v-1"
+              data-title="Screen Space Directional Contact Shadow"
+              data-description="Simple SSDCS. Still a work in progress and still in a broken phase."
+              data-link=""
+              data-image="video/shader/Shader_12.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_12.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Screen Space Directional Contact Shadow [WIP]
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <h3
+            class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span>Unity Engine BRP - YmneStylisedFX</span>
+          </h3>
+
+          <!-- StylizedFX -->
+          <div id="shader-grid" class="panel-grid mb-12">
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="PSX Shader Pack"
+              data-description="A collection of PlayStation 1-inspired shaders for Unity's Built-in Render Pipeline (BRP), designed to replicate the visual style of early PSX. This pack includes fog effects, vertex jittering and affine texture (material based), dithered transparency, pixelation, and color quantization."
+              data-link="https://github.com/Ymne22/PSX-Shaders-for-Unity-Built-in-RP"
+              data-image="video/shader/Shader_4.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_4.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  PSX Shader Pack
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-4 panel-v-2"
+              data-title="Cel Shading Shader"
+              data-description="A custom cel-shading shader designed for anime/MMD-style characters in Unity. Supports features like hard-edge lighting, SSS (subsurface scattering), rim lighting, double-sided rendering, and more."
+              data-link="https://github.com/Ymne22/Cel-Shading-Shader-for-Unity-BRP"
+              data-image="video/shader/Shader_1.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_1.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Cel Shading Shader
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="Water Material Shader"
+              data-description="A water shader made for Unity, featuring physically-inspired light interaction, screen-space reflections, foam, Gerstner waves, and more."
+              data-link="https://github.com/Ymne22/Water-Material-Shader-for-Unity-BRP"
+              data-image="video/shader/Shader_5.mp4"
+            >
+              <video
+                data-src="video/shader/Shader_5.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Water Material Shader
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Other Projects -->
+          <h3
+            class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span>Other Shaders</span>
+          </h3>
+          <div class="carousel max-w-7xl mx-auto mb-16" data-section="art">
+            <div class="carousel-container">
+              <div class="carousel-track -mx-2">
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="Software Raytracing"
+                    data-description="This project explores a real-time software-based ray tracer built from scratch in Unity, leveraging compute shaders instead of relying on hardware-accelerated ray tracing APIs. It implements a simple Bounding Volume Hierarchy (BVH), recursive light transport including reflections and indirect lighting, and a procedural sky."
+                    data-link="https://github.com/Ymne22/Real-Time-Software-Ray-Tracing-in-Unity-BRP"
+                    data-image="video/shader/Shader_2.mp4"
+                  >
+                    <video
+                      data-src="video/shader/Shader_2.mp4"
+                      muted
+                      playsinline
+                      class="w-full h-full object-cover"
+                    ></video>
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        Software Raytracing
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="Physically-Based Rendering (PBR) shader with custom GGX BRDF [Deprecated]"
+                    data-description="A physically-based rendering (PBR) shader with GGX BRDF implementation for Unity's Built-in Render Pipeline (BRP) [Forward Only]"
+                    data-link="https://github.com/Ymne22/Custom-GGX-PBR-Shader-for-Unity-BRP"
+                    data-image="video/shader/Shader_7.mp4"
+                  >
+                    <video
+                      data-src="video/shader/Shader_7.mp4"
+                      muted
+                      playsinline
+                      class="w-full h-full object-cover"
+                    ></video>
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        Physically-Based Rendering (PBR) shader with custom GGX
+                        BRDF [Deprecated]
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="Screen Space Global Illumination [Deprecated]"
+                    data-description="A simple and lightweight implementation of Screen Space Global Illumination (SSGI) for Unity's Built-in Render Pipeline (BRP). It features a fully ray-marching approach and provides both global illumination and ambient occlusion support with minimal setup and no external dependencies."
+                    data-link="https://github.com/Ymne22/Screen-Space-Global-Illumination-SSGI-for-Unity-Built-in-RP"
+                    data-image="video/shader/Shader_3.mp4"
+                  >
+                    <video
+                      data-src="video/shader/Shader_3.mp4"
+                      muted
+                      playsinline
+                      class="w-full h-full object-cover"
+                    ></video>
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        Screen Space Global Illumination [Deprecated]
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="Combination of APV and Precomputed GI Enlighten"
+                    data-description="Breakdown on combining APV and Precomputed GI (Enlighten) in Unity HDRP, The links are broken, consider fixing them if really needed."
+                    data-link=""
+                    data-image="video/shader/Shader_6.mp4"
+                  >
+                    <video
+                      data-src="video/shader/Shader_6.mp4"
+                      muted
+                      playsinline
+                      class="w-full h-full object-cover"
+                    ></video>
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        Combination of APV and Precomputed GI Enlighten
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-controls mt-8">
+              <button class="prev-btn">
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button class="next-btn">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========== Games Section =========== -->
+      <section id="games" class="py-20 md:py-32">
+        <div class="container mx-auto px-6">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span class="material-symbols-outlined !text-4xl"
+              >stadia_controller</span
+            ><span>Games & Devlogs</span>
+          </h2>
+          <!-- Highlighted Projects -->
+          <div class="panel-grid mb-12">
+            <div
+              class="panel scroll-animate panel-h-4 panel-v-2"
+              data-title="Holo-Attack"
+              data-description="HoloAttack! is a fast-paced combo-stacking game where you demolish landmarks and buildings using unique skills on each characters. Play as the Hololive EN Myth members, Gura, Ame, Ina, Kiara, and Calli as you chain combos to achieve your goal. The game features a variety of destructible buildings that add strategic depth to the gameplay... Canceled since Gura has already graduated and Ame is now just affiliated"
+              data-link="https://ymne22.itch.io/project-hl-atk"
+              data-image="/Portfolio-Ymne/video/game/Game_1.mp4"
+            >
+              <video
+                data-src="video/game/Game_1.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Holo-Attack [Game]
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="Kanna and Lia the Witch"
+              data-description="This game is an action-platforming game, with a prototype boss featuring bullet hell mechanics. Designed as a prototype to explore gameplay ideas and technical challenges"
+              data-link="https://ymne22.itch.io/kanna-and-lia-the-witch"
+              data-image="video/game/Game_2.mp4"
+            >
+              <video
+                data-src="video/game/Game_2.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Kanna and Lia the Witch [Game]
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-3 panel-v-1"
+              data-title="Random Devlogs - HL2 Movement with Gravity Shift"
+              data-description="Testing and having fun with gravity shifting as a main mechanic. It was meant to be free-rotating, but all 5 playtesters felt nauseous, so I switched to 90° snaps and they preferred it. Ignore the HL2 SFX as placeholders and APV leaks, it's just a prototype. This was made only for fun."
+              data-link="https://x.com/ymne22/status/1928058280510623768"
+              data-image="video/game/Game_3.mp4"
+            >
+              <video
+                data-src="video/game/Game_3.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  HL2 Movement with Gravity Shift [Devlog]
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-3 panel-v-1"
+              data-title="Random Devlogs - Vampire Survivor Mechanics"
+              data-description="This mechanic was originally meant for something else, but I ended up making this instead, just experimenting with how it could be used differently. I made it just for fun, not planning to release it."
+              data-link="https://x.com/ymne22/status/1939998659409760522"
+              data-image="video/game/Game_4.mp4"
+            >
+              <video
+                data-src="video/game/Game_4.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Vampire Survivor Mechanics [Devlog]
+                </h4>
+              </div>
+            </div>
+          </div>
+          <h3
+            class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span
+              >Only self-published or self-documented work is included, game
+              jams and other collaborations are excluded.</span
+            >
+          </h3>
+        </div>
+      </section>
+
+      <!-- Art Section -->
+      <section
+        id="art"
+        class="py-20 md:py-32 bg-background-light-alt dark:bg-background-dark-alt"
+      >
+        <div class="container mx-auto px-6">
+          <h2
+            class="text-3xl md:text-4xl font-bold text-center mb-16 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span class="material-symbols-outlined !text-4xl">palette</span
+            ><span>Animation & Illustrations</span>
+          </h2>
+          <!-- Highlighted Projects -->
+          <h3
+            class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span>Animation Highlight</span>
+          </h3>
+          <div class="panel-grid mb-12">
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="Gawr Gura Animation 1"
+              data-description="an old looping animation. I don't remember exactly, but I think I made it within an hour (or maybe a day?)... A :D"
+              data-link="https://x.com/ymne22/status/1886274261704429822"
+              data-image="video/art/Art_4.mp4"
+            >
+              <video
+                data-src="video/art/Art_4.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Gawr Gura Animation 1
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="Summer Animation (2023)"
+              data-description="Short Animation Study in 2023"
+              data-link="#"
+              data-image="video/art/Art_6.mp4"
+            >
+              <video
+                data-src="video/art/Art_6.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Summer Animation (2023)
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-2"
+              data-title="Background Animation Practice"
+              data-description="Using 3DLO as reference, and then redraw again, Background Animation Practice"
+              data-link="https://youtu.be/oD7ZGUneGuA"
+              data-image="video/art/Art_5.mp4"
+            >
+              <video
+                data-src="video/art/Art_5.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Background Animation Practice
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-3 panel-v-1"
+              data-title="Gawr Gura Animation 2"
+              data-description="I made this animation for Gawr Gura’s graduation... A~"
+              data-link="https://x.com/ymne22/status/1912520993480036610/video/1"
+              data-image="video/art/Art_1.mp4"
+            >
+              <video
+                data-src="video/art/Art_1.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Gawr Gura Animation 2
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-2 panel-v-1"
+              data-title="Smol Myth Animation"
+              data-description="Random animate, I used a 3D smoll Ina model as a rough reference, just rotating it randomly to see how the bottom side would look in 3D space"
+              data-link="https://x.com/ymne22/status/1886772939456176337"
+              data-image="video/art/Art_3.mp4"
+            >
+              <video
+                data-src="video/art/Art_3.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  Smol Myth Animation
+                </h4>
+              </div>
+            </div>
+
+            <div
+              class="panel scroll-animate panel-h-1 panel-v-1"
+              data-title="CSM Random Animation"
+              data-description="Random animation i've been made, It sucks because I scrapped a lot of rough layouts, especially the 'running' part. It was inspired by a trailer I watched back then."
+              data-link="https://x.com/ymne22/status/1886278304325595410"
+              data-image="video/art/Art_2.mp4"
+            >
+              <video
+                data-src="video/art/Art_2.mp4"
+                muted
+                playsinline
+                class="w-full h-full object-cover"
+              ></video>
+              <div
+                class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+              >
+                <h4
+                  class="text-white text-xs font-semibold uppercase tracking-wider"
+                >
+                  CSM Random Animation
+                </h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standard Projects Carousel -->
+          <h3
+            class="text-3xl md:text-2xl font-bold text-center mb-4 scroll-animate flex items-center justify-center gap-3"
+          >
+            <span>'Holo-Attack' Materials</span>
+          </h3>
+          <div class="carousel max-w-7xl mx-auto mb-16" data-section="art">
+            <div class="carousel-container">
+              <div class="carousel-track -mx-2">
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="'Holo-Attack' Loading Animation"
+                    data-description="Gura walk cycle 2D animation as a loading indicator."
+                    data-link="https://x.com/ymne22/status/1886775044036288616"
+                    data-image="video/art/HL-ATK/Art_1.mp4"
+                  >
+                    <video
+                      data-src="video/art/HL-ATK/Art_1.mp4"
+                      muted
+                      playsinline
+                      class="w-full h-full object-cover"
+                    ></video>
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        'Holo-Attack' Loading Animation
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="'Holo-Attack' Menu Concept"
+                    data-description="Concept art for Holo-Attack Main Menu."
+                    data-link="https://x.com/ymne22/status/1894217133300879457/"
+                    data-image="image/art/HL-ATK/art_1.jpg"
+                  >
+                    <img src="image/art/HL-ATK/art_1.jpg" />
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        'Holo-Attack' Menu Concept
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="'Holo-Attack' Character Selection Concept"
+                    data-description="Concept art for Holo-Attack Character Selection."
+                    data-link="https://x.com/ymne22/status/1894217133300879457/"
+                    data-image="image/art/HL-ATK/art_2.jpg"
+                  >
+                    <img src="image/art/HL-ATK/art_2.jpg" />
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        'Holo-Attack' Character Selection Concept
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div
+                    class="panel"
+                    data-title="'Holo-Attack' Character Sprites Set"
+                    data-description="Sprites set art for Holo-Attack Characters."
+                    data-link="#"
+                    data-image="image/art/HL-ATK/art_3.jpg"
+                  >
+                    <img src="image/art/HL-ATK/art_3.jpg" />
+                    <div
+                      class="absolute bottom-0 right-0 p-3 bg-black/60 backdrop-blur-sm rounded-tl-lg"
+                    >
+                      <h4
+                        class="text-white text-xs font-semibold uppercase tracking-wider"
+                      >
+                        'Holo-Attack' Character Sprites Set
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-controls mt-8">
+              <button class="prev-btn">
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button class="next-btn">
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- =========== Footer/Contact Section =========== -->
-    <footer id="contact"
-        class="border-t border-border-light dark:border-border-dark py-20 md:py-32 text-center md:text-left">
-        <div class="container mx-auto px-6">
-            <!-- Main flex container for the two columns -->
-            <div class="flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto gap-12 md:gap-20">
+    <footer
+      id="contact"
+      class="border-t border-border-light dark:border-border-dark py-20 md:py-32 text-center md:text-left"
+    >
+      <div class="container mx-auto px-6">
+        <!-- Main flex container for the two columns -->
+        <div
+          class="flex flex-col md:flex-row md:justify-between md:items-center max-w-6xl mx-auto gap-12 md:gap-20"
+        >
+          <!-- L Column: Social Media Cards -->
+          <div
+            class="md:w-1/2 lg:w-3/5 grid grid-cols-1 sm:grid-cols-2 gap-6 scroll-animate"
+            style="transition-delay: 300ms"
+          >
+            <!-- GitHub Card -->
+            <a
+              href="https://github.com/Ymne22"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left"
+            >
+              <svg
+                class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <h3 class="font-bold text-xl mb-2">GitHub</h3>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                @ymne22
+              </p>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                &rarr;
+              </p>
+            </a>
+            <!-- X Card -->
+            <a
+              href="https://x.com/ymne22"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left"
+            >
+              <svg
+                class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                />
+              </svg>
+              <h3 class="font-bold text-xl mb-2">X/Twitter</h3>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                @ymne22
+              </p>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                &rarr;
+              </p>
+            </a>
+            <!-- Itch.io Card -->
+            <a
+              href="https://ymne22.itch.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left"
+            >
+              <svg
+                class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z"
+                />
+              </svg>
+              <h3 class="font-bold text-xl mb-2">Itch.io</h3>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                @ymne
+              </p>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                &rarr;
+              </p>
+            </a>
+            <!-- Email Card -->
+            <a
+              href="mailto:ymneshaa22@gmail.com"
+              rel="noopener noreferrer"
+              class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left"
+            >
+              <svg
+                class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"
+                />
+              </svg>
+              <h3 class="font-bold text-xl mb-2">Email</h3>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                Send Email
+              </p>
+              <p
+                class="font-semibold text-primary-light dark:text-primary-dark"
+              >
+                &rarr;
+              </p>
+            </a>
+          </div>
 
-
-
-                <!-- L Column: Social Media Cards -->
-                <div class="md:w-1/2 lg:w-3/5 grid grid-cols-1 sm:grid-cols-2 gap-6 scroll-animate"
-                    style="transition-delay: 300ms;">
-                    <!-- GitHub Card -->
-                    <a href="https://github.com/Ymne22" target="_blank" rel="noopener noreferrer"
-                        class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left">
-                        <svg class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd"
-                                d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <h3 class="font-bold text-xl mb-2">GitHub</h3>
-                        <p class="text-secondary-light dark:text-secondary-dark mb-4">View my repositories.</p>
-                        <p class="font-semibold text-primary-light dark:text-primary-dark">@ymne22 &rarr;</p>
-                    </a>
-                    <!-- X Card -->
-                    <a href="https://x.com/ymne22" target="_blank" rel="noopener noreferrer"
-                        class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left">
-                        <svg class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                        <h3 class="font-bold text-xl mb-2">X (Twitter)</h3>
-                        <p class="text-secondary-light dark:text-secondary-dark mb-4">Follow me for updates</p>
-                        <p class="font-semibold text-primary-light dark:text-primary-dark">@ymne22 &rarr;</p>
-                    </a>
-                    <!-- Itch.io Card -->
-                    <a href="https://ymne22.itch.io/" target="_blank" rel="noopener noreferrer"
-                        class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left">
-                        <svg class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z" />
-                        </svg>
-                        <h3 class="font-bold text-xl mb-2">Itch.io</h3>
-                        <p class="text-secondary-light dark:text-secondary-dark mb-4">Check out my game projects.</p>
-                        <p class="font-semibold text-primary-light dark:text-primary-dark">@ymne &rarr;</p>
-                    </a>
-                    <!-- Email Card -->
-                    <a href="mailto:ymneshaa22@gmail.com" rel="noopener noreferrer"
-                        class="block p-8 rounded-lg bg-background-light-alt dark:bg-background-dark-alt hover:bg-border-light dark:hover:bg-border-dark transition-colors text-left">
-                        <svg class="w-8 h-8 mb-4 text-primary-light dark:text-primary-dark" fill="currentColor"
-                            viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
-                        </svg>
-                        <h3 class="font-bold text-xl mb-2">Email</h3>
-                        <p class="text-secondary-light dark:text-secondary-dark mb-4">The best way to reach me for
-                            inquiries.</p>
-                        <p class="font-semibold text-primary-light dark:text-primary-dark">Send an Email &rarr;</p>
-                    </a>
-                </div>
-
-                <!-- R Column: Text Content -->
-                <div class="md:w-1/2 lg:w-2/5 flex flex-col items-center md:items-start">
-                    <h2
-                        class="text-3xl md:text-4xl font-bold mb-4 scroll-animate flex items-center justify-center md:justify-start gap-3">
-                        <span class="material-symbols-outlined !text-4xl">mail</span><span>Let's connect.</span>
-                    </h2>
-                    <p class="text-lg text-secondary-light dark:text-secondary-dark mb-4 scroll-animate"
-                        style="transition-delay: 150ms;">
-                        I’ve shared so much art on my socials and even have some I forgot to post. Follow me there to
-                        stay
-                        up to date with my latest stuff!
-                    </p>
-                    <p class="text-lg text-secondary-light dark:text-secondary-dark mb-12 md:mb-0 scroll-animate"
-                        style="transition-delay: 150ms;">
-                        I'm always open to discussing new projects and opportunities. Find me on these platforms.
-                    </p>
-                    <p class="text-sm text-secondary-light dark:text-secondary-dark mt-20 text-center">&copy; 2025 Ymne22. All
-                Rights Reserved.</p>
-                </div>
-            </div>
-            <!--
+          <!-- R Column: Text Content -->
+          <div
+            class="md:w-1/2 lg:w-2/5 flex flex-col items-center md:items-start"
+          >
+            <h2
+              class="text-3xl md:text-4xl font-bold mb-4 scroll-animate flex items-center justify-center md:justify-start gap-3"
+            >
+              <span class="material-symbols-outlined !text-4xl">mail</span
+              ><span>Let's connect.</span>
+            </h2>
+            <p
+              class="text-lg text-secondary-light dark:text-secondary-dark mb-4 scroll-animate"
+              style="transition-delay: 150ms"
+            >
+              I’ve shared so much art on my socials and even have some I forgot
+              to post. Follow me there to stay up to date with my latest stuff!
+            </p>
+            <p
+              class="text-lg text-secondary-light dark:text-secondary-dark mb-12 md:mb-0 scroll-animate"
+              style="transition-delay: 150ms"
+            >
+              I'm always open to discussing new projects and opportunities. Find
+              me on these platforms.
+            </p>
+            <p
+              class="text-sm text-secondary-light dark:text-secondary-dark mt-20 text-center"
+            >
+              &copy; 2025 Ymne22. All Rights Reserved.
+            </p>
+          </div>
+        </div>
+        <!--
             <p class="text-sm text-secondary-light dark:text-secondary-dark mt-20 text-center">&copy; 2025 Ymne22. All
                 Rights Reserved.</p> -->
-        </div>
+      </div>
     </footer>
 
     <!-- =========== Floating Action Buttons =========== -->
-    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-3">
-        <button id="back-to-top" aria-label="Back to top"
-            class="w-12 h-12 flex justify-center items-center bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark rounded-full shadow-lg opacity-0 transform translate-y-4 hover:opacity-90 transition-all duration-300">
-            <span class="material-symbols-outlined">arrow_upward</span>
-        </button>
-        <button id="theme-toggle" aria-label="Toggle light and dark mode"
-            class="w-12 h-12 flex justify-center items-center bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark rounded-full shadow-lg hover:opacity-90 transition-opacity">
-            <span class="material-symbols-outlined block dark:hidden">dark_mode</span>
-            <span class="material-symbols-outlined hidden dark:block">light_mode</span>
-        </button>
+    <div
+      class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-3"
+    >
+      <button
+        id="back-to-top"
+        aria-label="Back to top"
+        class="w-12 h-12 flex justify-center items-center bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark rounded-full shadow-lg opacity-0 transform translate-y-4 hover:opacity-90 transition-all duration-300"
+      >
+        <span class="material-symbols-outlined">arrow_upward</span>
+      </button>
+      <button
+        id="theme-toggle"
+        aria-label="Toggle light and dark mode"
+        class="w-12 h-12 flex justify-center items-center bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark rounded-full shadow-lg hover:opacity-90 transition-opacity"
+      >
+        <span class="material-symbols-outlined block dark:hidden"
+          >dark_mode</span
+        >
+        <span class="material-symbols-outlined hidden dark:block"
+          >light_mode</span
+        >
+      </button>
     </div>
 
     <!-- =========== Keyboard Shortcut Hint =========== -->
     <div id="kbd-hint" class="kbd-hint">
-        <span>Shortcut Navigate: <kbd>1-5</kbd></span><br>
-        <span>Use numeric keyboard as shortcut</span>
+      <span>Shortcut Navigate: <kbd>1-5</kbd></span
+      ><br />
+      <span>Use numeric keyboard as shortcut</span>
     </div>
 
     <!-- =========== Modal =========== -->
     <div id="modal-backdrop" class="hidden"></div>
     <div id="modal" class="hidden">
-        <div class="modal-body">
-            <div class="md:w-1/2 flex-shrink-0">
-                <img id="modal-image" src="" alt="Project Image" class="w-full h-64 md:h-full object-cover">
-            </div>
-            <div class="md:w-1/2 p-8 md:p-10 relative flex flex-col">
-                <button id="modal-close-button"
-                    class="absolute top-4 right-4 text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors z-10">
-                    <span class="material-symbols-outlined !text-3xl">close</span>
-                </button>
-                <div class="flex-grow overflow-y-auto pr-4 -mr-4">
-                    <h3 id="modal-title" class="text-2xl font-bold mb-3 modal-content-animate"></h3>
-                    <p id="modal-description"
-                        class="text-secondary-light dark:text-secondary-dark mb-6 modal-content-animate"
-                        style="transition-delay: 100ms;"></p>
-                </div>
-                <div class="pt-6 mt-auto flex justify-end">
-                    <a id="modal-link" href="#" target="_blank" rel="noopener noreferrer"
-                        class="bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark py-3 px-6 rounded-full font-semibold hover:opacity-90 transition-opacity shadow-md modal-content-animate"
-                        style="transition-delay: 200ms;">View Source</a>
-                </div>
-            </div>
+      <div class="modal-body">
+        <div class="md:w-1/2 flex-shrink-0">
+          <img
+            id="modal-image"
+            src=""
+            alt="Project Image"
+            class="w-full h-64 md:h-full object-cover"
+          />
         </div>
+        <div class="md:w-1/2 p-8 md:p-10 relative flex flex-col">
+          <button
+            id="modal-close-button"
+            class="absolute top-4 right-4 text-secondary-light dark:text-secondary-dark hover:text-primary-light dark:hover:text-primary-dark transition-colors z-10"
+          >
+            <span class="material-symbols-outlined !text-3xl">close</span>
+          </button>
+          <div class="flex-grow overflow-y-auto pr-4 -mr-4">
+            <h3
+              id="modal-title"
+              class="text-2xl font-bold mb-3 modal-content-animate"
+            ></h3>
+            <p
+              id="modal-description"
+              class="text-secondary-light dark:text-secondary-dark mb-6 modal-content-animate"
+              style="transition-delay: 100ms"
+            ></p>
+          </div>
+          <div class="pt-6 mt-auto flex justify-end">
+            <a
+              id="modal-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-primary-light text-background-light dark:bg-primary-dark dark:text-background-dark py-3 px-6 rounded-full font-semibold hover:opacity-90 transition-opacity shadow-md modal-content-animate"
+              style="transition-delay: 200ms"
+              >View Source</a
+            >
+          </div>
+        </div>
+      </div>
     </div>
     <script src="script/main.js"></script>
-</body>
-
+  </body>
 </html>
